@@ -24,6 +24,8 @@ The platform follows a **Lambda Architecture**, processing batch historical data
 
 ### High-Level Data Flow
 
+```text
+
 ================================================================================
                     OMNIFIN SYSTEM ARCHITECTURE V1.0
 ================================================================================
