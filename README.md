@@ -24,45 +24,47 @@ The platform follows a **Lambda Architecture**, processing batch historical data
 
 ### High-Level Data Flow
 
-```mermaid
-graph TD
-    %% Nodes
-    subgraph Sources ["📡 Data Sources"]
-        News[CafeF / Google News]
-        Stocks[VNStock / Yahoo]
-    end
+================================================================================
+                    OMNIFIN SYSTEM ARCHITECTURE V1.0
+================================================================================
 
-    subgraph Ingestion ["Hz Ingestion Layer"]
-        Airflow[Apache Airflow<br/>(Batch Scheduling)]
-        Redpanda[Redpanda / Kafka<br/>(Real-Time Stream)]
-    end
-
-    subgraph Lakehouse ["💾 Data Lakehouse (MinIO)"]
-        Bronze[(Bronze Layer<br/>Raw JSON)]
-        Silver[(Silver Layer<br/>Delta Lake)]
-        Gold[(Gold Layer<br/>Postgres/dbt Marts)]
-    end
-
-    subgraph Intelligence ["🧠 AI & MLOps Cortex"]
-        Feast[Feast Feature Store]
-        XGB[XGBoost Model]
-        VectorDB[(Qdrant Vector DB)]
-        LLM[Llama 3 Agent]
-    end
-
-    %% Connections
-    News --> Airflow & Redpanda
-    Stocks --> Redpanda
-    
-    Airflow --> Bronze
-    Redpanda --> Bronze
-    
-    Bronze -->|Spark| Silver
-    Silver -->|dbt| Gold
-    
-    Gold --> Feast
-    News -->|Embedding| VectorDB
-    
-    Feast --> XGB
-    XGB -->|Prediction| LLM
-    VectorDB -->|Context| LLM
+    [ 1. EXTERNAL ]             [ 2. INGESTION ]            [ 3. STORAGE ]
+   +---------------+           +---------------+           +---------------+
+   |   VNStock     | --------> |   Redpanda    | --------> |     MinIO     |
+   | (Quant Data)  |           |    (Kafka)    |           |  (Raw Bucket) |
+   +---------------+           +---------------+           +-------+-------+
+                                                                   |
+   +---------------+           +---------------+                   v
+   |    CafeF      | --------> |    Airflow    |           +---------------+
+   |  (Qual Data)  |           |   Scraper     | --------> | Apache Spark  |
+   +---------------+           +---------------+           | (Processing)  |
+                                                           +-------+-------+
+                                                                   |
+            +------------------------------------------------------+
+            |
+            v                                      v
+   +----------------+                      +----------------+
+   |   PostgreSQL   |                      |    Qdrant      |
+   |   (Gold DB)    |                      |  (Vector DB)   |
+   +--------+-------+                      +-------+--------+
+            |                                      |
+            v                                      v
+   +----------------+                      +----------------+
+   |     Feast      |                      |   RAG Context  |
+   | (Feature Store)|                      |   Retrieval    |
+   +--------+-------+                      +-------+--------+
+            |                                      |
+            |              [ 4. AI CORE ]          |
+            +-------------------+------------------+
+                                |
+                                v
+                       +----------------+
+                       |  Llama 3 Agent |
+                       | (Reasoning Eng)|
+                       +--------+-------+
+                                |
+                                v
+                       +----------------+
+                       |    FastAPI     |
+                       |   (Endpoint)   |
+                       +----------------+
