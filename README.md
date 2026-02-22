@@ -24,7 +24,39 @@ The platform follows a **Lambda Architecture**, processing batch historical data
 
 ### High-Level Data Flow
 
+
+
+
+
 ```text
+
+
++----------------+      +------------------+      +------------------+
+|  DATA SOURCES  |      | INGESTION LAYER  |      |  LAKEHOUSE (S3)  |
++----------------+      +------------------+      +------------------+
+|  Stock Market  |      |   Airflow DAGs   |      |  [Bronze] Raw    |
+|   (VNStock)    +----->|     (Batch)      +----->|   JSON / HTML    |
+|                |      |                  |      |        |         |
++----------------+      +------------------+      +--------+---------+
+| Financial News |      | Redpanda / Kafka |      |  [Silver] Delta  |
+|    (CafeF)     +----->|     (Stream)     +----->|   Clean Parquet  |
+|                |      |                  |      |        |         |
++----------------+      +------------------+      +--------+---------+
+                                                           |
+                                                           v
++----------------+      +------------------+      +------------------+
+|   PRESENTATION |      |   INTELLIGENCE   |      | WAREHOUSE (Gold) |
++----------------+      +------------------+      +------------------+
+|    Streamlit   |      |   LLM Agent      |      |     Postgres     |
+|   Dashboard    |<-----+    (Llama 3)     |<-----+    (dbt Marts)   |
+|                |      |                  |      |                  |
++----------------+      +------------------+      +------------------+
+|    FastAPI     |      |   XGBoost Model  |      |   Feature Store  |
+|    Gateway     |<-----+      (ML)        |<-----+      (Feast)     |
++----------------+      +------------------+      +------------------+
+
+
+
 
 ================================================================================
                     OMNIFIN SYSTEM ARCHITECTURE V1.0
