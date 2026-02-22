@@ -102,3 +102,22 @@ The platform follows a **Lambda Architecture**, processing batch historical data
                        |    FastAPI     |
                        |   (Endpoint)   |
                        +----------------+
+```
+
+### 📂 Repository Structure
+```text
+
+OmniFin/
+├── infrastructure/        # Terraform & Docker Compose
+├── ingestion/             # Scrapers (CafeF) & Producers (Redpanda)
+├── lakehouse/             # Spark Jobs & Delta Lake logic
+├── warehouse/             # dbt project (SQL models)
+├── feature_store/         # Feast definitions (feature_views.py)
+├── mlops/                 # Training scripts, MLflow tracking, Evidently
+├── agent/                 # RAG logic, Ollama integration, Qdrant
+├── api/                   # FastAPI gateway
+└── monitoring/            # Grafana dashboards & Prometheus
+```
+
+###🚀 How to Run Locally
+
