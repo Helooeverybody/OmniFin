@@ -119,5 +119,7 @@ OmniFin/
 └── monitoring/            # Grafana dashboards & Prometheus
 ```
 
-###🚀 How to Run Locally
+### 🚀 How to Run Locally
+### 📝 License
+Distributed under the MIT License. See LICENSE for more information.
 
