@@ -1,6 +1,6 @@
 # 🏦 OmniFin: Autonomous Financial Intelligence Platform
 
-![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python&logoColor=white)
+
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Spark](https://img.shields.io/badge/Apache_Spark-Streaming-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
 ![MLOps](https://img.shields.io/badge/MLOps-End_to_End-green?style=for-the-badge)
