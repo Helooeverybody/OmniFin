@@ -22,6 +22,7 @@ Unlike traditional black-box models, OmniFin utilizes an **Agentic RAG (Retrieva
 The platform follows a **Lambda Architecture**, processing batch historical data for model training and real-time streaming data for inference.
 
 
+<img width="2020" height="853" alt="pipeline" src="https://github.com/user-attachments/assets/22adab28-f94d-43d2-a49a-3f84b501906c" />
 
 
 
