@@ -3,8 +3,7 @@
 
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Spark](https://img.shields.io/badge/Apache_Spark-Streaming-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
-![MLOps](https://img.shields.io/badge/MLOps-End_to_End-green?style=for-the-badge)
-![GenAI](https://img.shields.io/badge/GenAI-RAG_Agent-purple?style=for-the-badge)
+
 
 > **A Unified Data Lakehouse & MLOps Platform combining Quantitative Market Data with Qualitative News Sentiment to generate Explainable Investment Strategies.**
 
@@ -22,89 +21,11 @@ Unlike traditional black-box models, OmniFin utilizes an **Agentic RAG (Retrieva
 
 The platform follows a **Lambda Architecture**, processing batch historical data for model training and real-time streaming data for inference.
 
-### High-Level Data Flow
 
 
 
 
-
-```text
-
-
-+----------------+      +------------------+      +------------------+
-|  DATA SOURCES  |      | INGESTION LAYER  |      |  LAKEHOUSE (S3)  |
-+----------------+      +------------------+      +------------------+
-|  Stock Market  |      |   Airflow DAGs   |      |  [Bronze] Raw    |
-|   (VNStock)    +----->|     (Batch)      +----->|   JSON / HTML    |
-|                |      |                  |      |        |         |
-+----------------+      +------------------+      +--------+---------+
-| Financial News |      | Redpanda / Kafka |      |  [Silver] Delta  |
-|    (CafeF)     +----->|     (Stream)     +----->|   Clean Parquet  |
-|                |      |                  |      |        |         |
-+----------------+      +------------------+      +--------+---------+
-                                                           |
-                                                           v
-+----------------+      +------------------+      +------------------+
-|   PRESENTATION |      |   INTELLIGENCE   |      | WAREHOUSE (Gold) |
-+----------------+      +------------------+      +------------------+
-|    Streamlit   |      |   LLM Agent      |      |     Postgres     |
-|   Dashboard    |<-----+    (Llama 3)     |<-----+    (dbt Marts)   |
-|                |      |                  |      |                  |
-+----------------+      +------------------+      +------------------+
-|    FastAPI     |      |   XGBoost Model  |      |   Feature Store  |
-|    Gateway     |<-----+      (ML)        |<-----+      (Feast)     |
-+----------------+      +------------------+      +------------------+
-
-
-
-
-================================================================================
-                    OMNIFIN SYSTEM ARCHITECTURE V1.0
-================================================================================
-
-    [ 1. EXTERNAL ]             [ 2. INGESTION ]            [ 3. STORAGE ]
-   +---------------+           +---------------+           +---------------+
-   |   VNStock     | --------> |   Redpanda    | --------> |     MinIO     |
-   | (Quant Data)  |           |    (Kafka)    |           |  (Raw Bucket) |
-   +---------------+           +---------------+           +-------+-------+
-                                                                   |
-   +---------------+           +---------------+                   v
-   |    CafeF      | --------> |    Airflow    |           +---------------+
-   |  (Qual Data)  |           |   Scraper     | --------> | Apache Spark  |
-   +---------------+           +---------------+           | (Processing)  |
-                                                           +-------+-------+
-                                                                   |
-            +------------------------------------------------------+
-            |
-            v                                      v
-   +----------------+                      +----------------+
-   |   PostgreSQL   |                      |    Qdrant      |
-   |   (Gold DB)    |                      |  (Vector DB)   |
-   +--------+-------+                      +-------+--------+
-            |                                      |
-            v                                      v
-   +----------------+                      +----------------+
-   |     Feast      |                      |   RAG Context  |
-   | (Feature Store)|                      |   Retrieval    |
-   +--------+-------+                      +-------+--------+
-            |                                      |
-            |              [ 4. AI CORE ]          |
-            +-------------------+------------------+
-                                |
-                                v
-                       +----------------+
-                       |  Llama 3 Agent |
-                       | (Reasoning Eng)|
-                       +--------+-------+
-                                |
-                                v
-                       +----------------+
-                       |    FastAPI     |
-                       |   (Endpoint)   |
-                       +----------------+
-```
-
-### 📂 Repository Structure
+## 📂 Repository Structure
 ```text
 
 OmniFin/
@@ -119,7 +40,7 @@ OmniFin/
 └── monitoring/            # Grafana dashboards & Prometheus
 ```
 
-### 🚀 How to Run Locally
-### 📝 License
+## 🚀 How to Run Locally
+## 📝 License
 Distributed under the MIT License. See LICENSE for more information.
 
