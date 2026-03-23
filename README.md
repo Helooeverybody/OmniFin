@@ -1,4 +1,4 @@
-# 🏦 OmniFin: Autonomous Financial Intelligence Platform
+# 🏦 VietNam-OmniFin: Autonomous Financial Intelligence Platform
 
 
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)
